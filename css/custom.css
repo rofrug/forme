@@ -1,0 +1,103 @@
+@keyframes slideInFromRight {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideInFromLeft {
+    from { transform: translateX(-100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+.slide-in-right {
+    animation: slideInFromRight 0.4s ease-out forwards;
+}
+
+.slide-in-left {
+    animation: slideInFromLeft 0.4s ease-out forwards;
+}
+
+.animate-pulse-color {
+    background: linear-gradient(-45deg, #a78bfa, #f472b6, #fde68a, #a5f3fc);
+    background-size: 400% 400%;
+    animation: gradientShift 10s ease infinite, scaleAndShadow 4s ease-in-out infinite;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes scaleAndShadow {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 40px 60px rgba(0, 0, 0, 0.05);
+    }
+    50% {
+        transform: scale(1.15);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+}
+
+.tarjeta-testimonio {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tarjeta-testimonio:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+/* Ocultar scroll horizontal */
+#scrollContainer {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+#scrollContainer::-webkit-scrollbar {
+    display: none;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.animate-fadeIn {
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeInSlow {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.animate-fadeInSlow {
+    animation: fadeInSlow 1.2s ease-out;
+}
+
+@keyframes pulse-slow {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.04); opacity: 0.9; }
+}
+.animate-pulse-slow {
+    animation: pulse-slow 2s ease-in-out infinite;
+}
+
+@keyframes light-flash {
+    0%, 100% { opacity: 0.1; }
+    50% { opacity: 0.3; }
+}
+.animate-light-flash {
+    animation: light-flash 3.5s ease-in-out infinite;
+}
+
+/* Tipografías base */
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+h1, h2, h3 {
+    font-family: 'Nunito', sans-serif;
+}
+
+/* Desactiva el scroll suave por defecto */
+html {
+    scroll-behavior: auto;
+}
