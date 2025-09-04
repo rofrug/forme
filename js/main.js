@@ -83,3 +83,31 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 document.getElementById("cantidadPuntos").textContent = "120";
 document.getElementById("cantidadPuntosMobile").textContent = "120";
+// --- Actualizador global de tokens (cubre DOM listo o no) ---
+(function () {
+  function _applyTokens(n) {
+    document.querySelectorAll(".js-tokens").forEach((el) => {
+      el.textContent = n;
+    });
+  }
+
+  function actualizarTokens(n) {
+    // si el DOM aún no está listo, espera y luego aplica
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", () => _applyTokens(n), {
+        once: true,
+      });
+    } else {
+      _applyTokens(n);
+    }
+  }
+
+  // expone la función globalmente
+  window.actualizarTokens = actualizarTokens;
+
+  // inicial: pinta lo último guardado (si existe)
+  document.addEventListener("DOMContentLoaded", () => {
+    const saved = Number(localStorage.getItem("tokens") || 0);
+    actualizarTokens(saved);
+  });
+})();
