@@ -1,4 +1,5 @@
-// src/common/NavBar.js
+//Configura el menú responsive. Al inicializarse, busca el botón de menú móvil y el menú desplegable, y agrega listeners para abrir/cerrar el menú con animaciones de clases. También implementa scroll suave al hacer clic en los enlaces de navegación para desplazarse a secciones específicas de la página. Añade un efecto de sombra al header al hacer scroll.
+
 import { $, $$, smoothScrollTo } from "./Utils.js";
 
 export const NavBar = (() => {

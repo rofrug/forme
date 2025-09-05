@@ -12,6 +12,7 @@ export const PRICING_TIERS = [
   { hasta: 36, unit: 5.0 },
   { hasta: 42, unit: 4.5 },
   { hasta: 50, unit: 4.0 },
+  
 ];
 
 // Rutas/URLs útiles

@@ -1,4 +1,5 @@
-// src/pricing/PricingCalculator.js
+// Implementa la lógica interactiva de la sección de precios. Al iniciarse con initPricingCalculator(), obtiene elementos como el slider de tokens (#sliderTokens) y campos de texto para mostrar valores (#valorTokens, #precioUnidad, #precioTotal, etc.). Registra un evento input en el slider para recalcular el precio unitario y total según la cantidad seleccionada. Los precios por tramo (tiers) y la moneda se obtienen de constantes definidas en el proyecto. Por ejemplo, el código determina si se aplica un descuento mostrando u ocultando una etiqueta de “Descuento aplicado” (#badgeDescuento) dependiendo del precio unitario calculado.
+
 import { $, $$, clamp, formatCurrency } from "../common/Utils.js";
 import { PRICING_TIERS, CURRENCY } from "../common/constants.js";
 
@@ -54,22 +55,6 @@ export function initPricingCalculator() {
   }
 
   slider.addEventListener("input", update);
-
-  // Quick picks
-  $$("#precios [data-set-tokens]").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const t = parseInt(btn.getAttribute("data-set-tokens"), 10);
-      if (!isNaN(t)) {
-        slider.value = clamp(t, min, max);
-        update();
-      }
-      const target = btn.getAttribute("data-scroll");
-      if (target)
-        document
-          .querySelector(target)
-          ?.scrollIntoView({ behavior: "smooth", block: "start" });
-    });
-  });
 
   update();
 }

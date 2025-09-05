@@ -77,4 +77,5 @@ export function smoothScrollTo(target, offset = 0) {
   if (!el) return;
   const y = el.getBoundingClientRect().top + window.pageYOffset - (offset || 0);
   window.scrollTo({ top: y, behavior: 'smooth' });
+  
 }
