@@ -1,74 +1,55 @@
 // src/common/Utils.js
 
-// Selectores cortos
-export const $ = (s, ctx = document) => ctx.querySelector(s);
-export const $$ = (s, ctx = document) => Array.from(ctx.querySelectorAll(s));
+/**
+ * Selecciona el primer elemento que coincide con el selector.
+ * @param {string} s - Selector CSS.
+ * @param {ParentNode} [ctx=document] - Contexto de búsqueda.
+ * @returns {Element|null}
+ */
+export const $ = (s, ctx = document) => (ctx ? ctx.querySelector(s) : null);
 
-// Formato de moneda (Perú por defecto)
+/**
+ * Selecciona todos los elementos que coinciden con el selector y los convierte en array.
+ * @param {string} s - Selector CSS.
+ * @param {ParentNode} [ctx=document] - Contexto de búsqueda.
+ * @returns {Element[]}
+ */
+export const $$ = (s, ctx = document) =>
+  ctx ? Array.from(ctx.querySelectorAll(s)) : [];
+
+/**
+ * Formatea un número como moneda. Por defecto: Perú (PEN).
+ * Maneja valores falsy/NaN de forma segura.
+ * @param {number} value - Valor numérico.
+ * @param {{ locale?: string, currency?: string }} [opts]
+ * @returns {string}
+ */
 export function formatCurrency(
   value,
   { locale = "es-PE", currency = "PEN" } = {}
 ) {
-  return new Intl.NumberFormat(locale, {
-    style: "currency",
-    currency,
-    minimumFractionDigits: 2,
-  }).format(value || 0);
+  const n = Number.isFinite(value) ? value : 0;
+  try {
+    return new Intl.NumberFormat(locale, {
+      style: "currency",
+      currency,
+      minimumFractionDigits: 2,
+    }).format(n);
+  } catch {
+    // Fallback simple si el Intl falla por locale/currency inválidos.
+    return `${n.toFixed(2)} ${currency}`;
+  }
 }
 
-// Números
-export const clamp = (n, min, max) => Math.min(Math.max(n, min), max);
-
-// Tiempo
-export const debounce = (fn, delay = 250) => {
-  let t;
-  return (...args) => {
-    clearTimeout(t);
-    t = setTimeout(() => fn(...args), delay);
-  };
+/**
+ * Restringe un número al rango [min, max].
+ * Devuelve NaN si n/min/max no son números finitos.
+ * @param {number} n
+ * @param {number} min
+ * @param {number} max
+ * @returns {number}
+ */
+export const clamp = (n, min, max) => {
+  if (![n, min, max].every(Number.isFinite)) return NaN;
+  return Math.min(Math.max(n, min), max);
 };
-export const throttle = (fn, delay = 250) => {
-  let last = 0;
-  return (...args) => {
-    const now = Date.now();
-    if (now - last >= delay) {
-      last = now;
-      fn(...args);
-    }
-  };
-};
-
-// DOM helpers
-export function show(el) {
-  if (!el) return;
-  el.classList.remove("hidden");
-  el.setAttribute("aria-hidden", "false");
-}
-export function hide(el) {
-  if (!el) return;
-  el.classList.add("hidden");
-  el.setAttribute("aria-hidden", "true");
-}
-export function toggle(el, force) {
-  if (!el) return;
-  el.classList.toggle("hidden", force);
-}
-
-// Scroll suave a un selector o nodo
-export function smoothScrollTo(target) {
-  const el =
-    typeof target === "string" ? document.querySelector(target) : target;
-  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-}
-
-// Delegación de eventos
-export function on(root, event, selector, handler) {
-  root.addEventListener(event, (e) => {
-    const match = e.target.closest(selector);
-    if (match && root.contains(match)) handler(e, match);
-  });
-}
-
-// IDs simples
-export const uid = (p = "id") =>
-  `${p}-${Math.random().toString(36).slice(2, 9)}`;
