@@ -5,14 +5,12 @@ export const CURRENCY = { locale: "es-PE", code: "PEN", symbol: "S/" };
 
 // Tramos de precios (un solo lugar para mantenerlos)
 export const PRICING_TIERS = [
-  { hasta: 1, unit: 7.0 },
-  { hasta: 3, unit: 6.5 },
-  { hasta: 9, unit: 6.0 },
-  { hasta: 18, unit: 5.5 },
-  { hasta: 36, unit: 5.0 },
-  { hasta: 42, unit: 4.5 },
-  { hasta: 50, unit: 4.0 },
-  
+{ hasta: 1,  unit: 7.00 },
+{ hasta: 5,  unit: 6.50 },
+{ hasta: 10, unit: 4.90 },
+{ hasta: 20, unit: 4.20 },
+{ hasta: 3, unit: 4.10 },
+{ hasta: 50, unit: 4.00 },
 ];
 
 // Rutas/URLs útiles
