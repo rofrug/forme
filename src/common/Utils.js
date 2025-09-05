@@ -71,3 +71,10 @@ export const clamp = (n, min, max) => {
   if (lo > hi) [lo, hi] = [hi, lo];
   return Math.min(Math.max(n, lo), hi);
 };
+// Smooth scroll a un elemento o selector (con offset opcional)
+export function smoothScrollTo(target, offset = 0) {
+  const el = typeof target === 'string' ? document.querySelector(target) : target;
+  if (!el) return;
+  const y = el.getBoundingClientRect().top + window.pageYOffset - (offset || 0);
+  window.scrollTo({ top: y, behavior: 'smooth' });
+}

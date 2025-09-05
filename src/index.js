@@ -2,7 +2,6 @@
 import { NavBar } from "./common/NavBar.js";
 import { initPricingCalculator } from "./pricing/PricingCalculator.js";
 import { initTestsFilter } from "./tests/TestsList.js";
-import { AuthUI } from "./auth/AuthUI.js";
 import { Carousel } from "./testimonials/Carousel.js";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -10,12 +9,9 @@ document.addEventListener("DOMContentLoaded", () => {
   initPricingCalculator();
   initTestsFilter();
   AuthUI.init();
+
+  // Usa los IDs por defecto del HTML (#t-track, #t-dots), sin overrides
   Carousel.init({
-    // Si quieres conservar TUS IDs viejos:
-    // viewportSel: '#carruselViewport', // si lo tuvieras
-    trackSel: "#carruselTrack",
-    dotsSel: "#carruselPuntos",
-    // prevSel: '#t-prev', nextSel: '#t-next', // si agregas botones
     maxItems: 6,
     randomize: true,
     autoplay: true,
